@@ -1,0 +1,47 @@
+<app-header></app-header>
+
+
+<div class="login-container">
+  <div class="login-box">
+    <h2 class="login-title">🔑 Login to GameShop</h2>
+
+  
+    <form (ngSubmit)="login()" #loginForm="ngForm" class="login-form">
+
+ 
+      <div class="form-group">
+        <input
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          placeholder="Email"
+          required
+          class="form-input"
+        />
+      </div>
+
+
+      <div class="form-group">
+        <input
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Password"
+          required
+          class="form-input"
+        />
+      </div>
+
+
+      <p class="login-message" *ngIf="message">{{ message }}</p>
+
+
+      <button type="submit" class="btn-login">Login</button>
+    </form>
+
+
+    <p class="login-register">
+      Don't have an account? <a routerLink="/register">Register</a>
+    </p>
+  </div>
+</div>

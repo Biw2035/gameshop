@@ -1,0 +1,66 @@
+<app-header></app-header>
+
+
+<div *ngIf="currentUser?.role === 'admin'; else noAccess" class="admin-form-container">
+
+  <h2>เพิ่มเกมใหม่</h2>
+
+  <form (ngSubmit)="saveGame()">
+
+    <div>
+      <label>ชื่อเกม:</label>
+      <input type="text" [(ngModel)]="game.title" name="title" required />
+    </div>
+
+    <div>
+      <label>รายละเอียดเกม:</label>
+      <textarea [(ngModel)]="game.description" name="description" required rows="4"></textarea>
+    </div>
+
+    <div>
+      <label>ราคา:</label>
+      <input type="number" [(ngModel)]="game.price" name="price" required />
+    </div>
+
+   <div>
+  <label>ประเภทเกม:</label>
+  <select [(ngModel)]="game.category" name="category" required>
+    <option value="" disabled selected>-- เลือกประเภทเกม --</option>
+    <option value="Action">Action</option>
+    <option value="RPG">RPG</option>
+    <option value="Horror">Horror</option>
+    <option value="Sport">Sport</option>
+    <option value="Adventure">Adventure</option>
+    <option value="Strategy">Strategy</option>
+    <option value="Simulation">Simulation</option>
+    <option value="Puzzle">Puzzle</option>
+    <option value="Shooter">Shooter</option>
+    <option value="MMO">MMO</option>
+    <option value="MOBA">MOBA</option>
+    <option value="Racing">Racing</option>
+    <option value="Survival">Survival</option>
+
+  </select>
+</div>
+
+
+    <div>
+      <label>เลือกรูปเกม:<div *ngIf="imagePreview" class="image-preview">
+      <img [src]="imagePreview" alt="Preview" />
+    </div></label>
+      <input type="file" (change)="onFileSelected($event)" required />
+    </div>
+
+    
+
+    <div class="button-group">
+      <button type="submit" class="button-save">บันทึกเกม</button>
+      <button type="button" (click)="close()" class="button-cancel">ยกเลิก</button>
+    </div>
+
+  </form>
+</div>
+
+<ng-template #noAccess>
+  <p class="no-access">⛔ คุณไม่มีสิทธิ์เข้าถึงหน้านี้</p>
+</ng-template>

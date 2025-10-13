@@ -1,0 +1,40 @@
+<app-header></app-header>
+
+<div class="admin-container">
+  <h2>Admin: ตรวจสอบธุรกรรมผู้ใช้</h2>
+
+  <div class="user-select">
+    <label>เลือกผู้ใช้:</label>
+    <select [(ngModel)]="selectedUserId" (change)="onUserChange()">
+      <option value="">-- เลือกผู้ใช้ --</option>
+      <option *ngFor="let u of users" [value]="u.id">{{ u.username }} (฿{{ u.wallet_balance }})</option>
+    </select>
+  </div>
+
+  <div *ngIf="transactions.length > 0" class="table-container">
+    <table class="transaction-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>ประเภท</th>
+          <th>จำนวนเงิน</th>
+          <th>เกม</th>
+          <th>วันที่</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of transactions">
+          <td>{{ t.id }}</td>
+          <td [ngClass]="t.type">{{ t.type | titlecase }}</td>
+          <td>฿{{ t.amount }}</td>
+          <td>{{ t.game_name || '-' }}</td>
+          <td>{{ t.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p *ngIf="transactions.length === 0 && selectedUserId" class="no-transaction">
+    ไม่พบธุรกรรมสำหรับผู้ใช้นี้
+  </p>
+</div>

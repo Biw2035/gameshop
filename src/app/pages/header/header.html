@@ -1,0 +1,54 @@
+<nav class="navbar">
+  <a routerLink="/" class="navbar-left">
+    <div class="logo-box"><img src="assets/images/gamelogo.png" alt="GameShop Logo" /></div>
+    <span class="brand-name">GameShop</span>
+  </a>
+
+  <ng-container *ngIf="currentUser$ | async as user">
+    <div class="navbar-center">
+      <a routerLink="/shop" class="nav-link">ร้านค้า</a>
+      <a *ngIf="user.role === 'user'" routerLink="/cart" class="nav-link"
+        >ตะกร้า</a
+      >
+      <a *ngIf="user.role === 'admin'" class="nav-link dropdown">
+  สร้าง ▾
+  <div class="dropdown-content">
+    <a routerLink="/admin/create">เกม</a>
+    <a routerLink="/admin/code">โค้ด</a>
+  </div>
+</a>
+      <div class="search-container">
+  <input
+    type="text"
+    placeholder="Search for games..."
+    class="search-input"
+    [(ngModel)]="searchTerm"
+    (input)="onSearchChange()"
+  />
+  
+</div>
+<a *ngIf="user.role === 'user'" routerLink="/mygame" class="nav-link"
+        >คลังของฉัน</a
+      >
+      <a *ngIf="user.role === 'admin'" routerLink="/checktransaction" class="nav-link"
+        >ตรวจธุระกรรมผู้ใช้</a
+      >
+    </div>
+    <div class="navbar-right">
+      <div class="user-profile" routerLink="/profile" (click)="goToProfile()">
+        <span class="user-profile-text">
+          Hello, {{ user.username }} | 💰
+          {{ user.wallet_balance | number : "1.2-2" }} Bath
+        </span>
+      </div>
+      <button class="nav-button logout-button" (click)="onLogout()">
+        Logout
+      </button>
+    </div>
+  </ng-container>
+
+  <div class="navbar-right" *ngIf="!(isLoggedIn$ | async)">
+    <button class="nav-button" routerLink="/login">Login</button>
+    <button class="nav-button" routerLink="/register">Register</button>
+  </div>
+</nav>

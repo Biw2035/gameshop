@@ -1,0 +1,232 @@
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #38305e, #6f5bd4);
+  color: #fff;
+  border-radius: 15px;
+  margin: 20px auto;
+  max-width: 900px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.welcome h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+}
+
+.welcome p {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+}
+
+.welcome-buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.action-button {
+  padding: 10px 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: linear-gradient(45deg, #00ffcc, #0077ff);
+  color: #fff;
+}
+
+.action-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
+
+/* ====== Game List ====== */
+.game-list {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.game-list h3 {
+  font-size: 2rem;
+  color: #00ffcc;
+  margin-bottom: 25px;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+}
+
+/* Container สำหรับเกมการ์ด */
+.game-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* การ์ดแต่ละเกม */
+.game-card {
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  color: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  min-width: 220px;    /* กำหนดขนาดพอดี */
+  max-width: 250px;    /* ไม่ใหญ่เกินไป */
+  flex: 1 1 220px;     /* ขยายตัวตาม container */
+  font-weight: 600;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+/* รูปเกม */
+.game-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.game-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.game-button {
+  padding: 6px 15px;
+  margin: 5px 3px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: linear-gradient(45deg, #00ffcc, #0077ff);
+  color: #fff;
+}
+
+.game-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.game-button.admin {
+  background: linear-gradient(45deg, #ff7f50, #ff3d3d);
+}
+
+.game-button.admin.delete {
+  background: linear-gradient(45deg, #ff3d3d, #c70000);
+}
+//ปุ่มประเภท
+/* ปุ่มหมวดเกม */
+.category-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+    justify-content: center;  /* กึ่งกลาง */
+}
+
+.category-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #eee;
+  color: #333;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+}
+
+.category-button:hover {
+  background-color: #ddd;
+}
+
+.category-button.active {
+  background-color: #4caf50;  /* สีเขียว */
+  color: white;
+  font-weight: bold;
+}
+
+
+//view detail
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.modal-content img {
+  max-width: 100%;
+  max-height: 200px;
+  margin: 0.5rem auto;
+  border-radius: 0.25rem;
+  object-fit: contain;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.button-add {
+  flex: 1;
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.4rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+.button-add:hover { background-color: #2563eb; }
+
+.button-edit {
+  flex: 1;
+  background-color: #f59e0b;
+  color: white;
+  padding: 0.4rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+.button-edit:hover { background-color: #d97706; }
+
+.button-close {
+  flex: 1;
+  background-color: #d1d5db;
+  color: #374151;
+  padding: 0.4rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+.button-close:hover { background-color: #9ca3af; }

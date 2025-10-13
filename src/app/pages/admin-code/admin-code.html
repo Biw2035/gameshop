@@ -1,0 +1,33 @@
+<app-header></app-header>
+
+<div class="admin-code-container">
+
+  <h2>สร้างโค้ดลดราคา</h2>
+
+  <form (ngSubmit)="createCode()">
+    <div class="form-group">
+      <label>โค้ด:</label>
+      <input type="text" [(ngModel)]="newCode.code" name="code" required />
+    </div>
+
+    <div class="form-group">
+      <label>มูลค่า (บาท):</label>
+      <input type="number" [(ngModel)]="newCode.value" name="value" required />
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="button-save">สร้างโค้ด</button>
+    </div>
+  </form>
+
+  <h2 class="list-title">รายการโค้ด</h2>
+  <div *ngFor="let code of codeList" class="code-item">
+    <span class="code-text">{{ code.code }}</span>
+    <span class="code-value">{{ code.value }}</span>
+    <span class="code-date">{{ code.created_at | date:'dd/MM/yyyy' }}</span>
+  </div>
+
+  <ng-template #noAccess>
+    <p class="no-access">⛔ คุณไม่มีสิทธิ์เข้าถึงหน้านี้</p>
+  </ng-template>
+</div>

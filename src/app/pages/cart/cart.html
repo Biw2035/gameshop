@@ -1,0 +1,37 @@
+<app-header></app-header>
+
+<div class="cart-container">
+  <h2>🛒 ตะกร้าของคุณ</h2>
+
+  <div *ngIf="cartItems.length === 0" class="empty-cart">
+    ไม่มีสินค้าในตะกร้า
+  </div>
+
+  <div *ngFor="let game of cartItems" class="cart-item">
+    <div class="cart-item-image">
+      <img [src]="game.image" alt="{{ game.title }}">
+    </div>
+    <div class="cart-item-info">
+      <h3>{{ game.title }}</h3>
+      <p>หมวด: {{ game.category }}</p>
+      <p>ราคา: ฿ {{ game.price }}</p>
+    </div>
+    <button class="button-delete" (click)="removeGame(game.id)">🗑️</button>
+  </div>
+
+  <div *ngIf="cartItems.length > 0" class="cart-summary">
+    <p>ราคารวม: {{ getTotalFormatted() }}</p>
+    <p >ส่วนลด: {{ discountValue }}</p>
+    <p>ราคาสุทธิ: {{ getFinalFormatted() }}</p>
+
+    <div class="cart-buttons">
+      <div class="cart-code">
+        <label>โค้ดลดราคา (ถ้ามี):</label>
+        <input type="text" [(ngModel)]="discountCode" placeholder="กรอกโค้ดลดราคา" />
+        <button type="button" (click)="applyDiscount()" class="button-apply">ใช้โค้ด</button>
+      </div>
+
+      <button (click)="checkout()" class="button-checkout">ชำระเงิน</button>
+    </div>
+  </div>
+</div>

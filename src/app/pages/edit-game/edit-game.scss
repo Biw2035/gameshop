@@ -1,0 +1,138 @@
+/* Container ฟอร์มกลางหน้า - เล็กลงมาก */
+.admin-form-container {
+  max-width: 400px;           /* ลดความกว้างลง */
+  margin: 1.5rem auto;        /* เว้นบน/ล่างน้อยลง */
+  padding: 1rem;              /* ลด padding */
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Headline */
+.admin-form-container h2 {
+  font-size: 1.25rem;         /* ลดขนาดหัวข้อ */
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #4b5563;
+}
+
+/* แต่ละ Field */
+.admin-form-container form > div {
+  margin-bottom: 0.5rem;      /* ลดช่องว่าง */
+}
+
+/* Label */
+.admin-form-container label {
+  display: block;
+  color: #4b5563;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+
+/* Input / Textarea / Select */
+.admin-form-container input[type="text"],
+.admin-form-container input[type="number"],
+.admin-form-container textarea,
+.admin-form-container select {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  padding: 0.35rem;           /* ลด padding */
+  outline: none;
+  transition: 0.2s;
+}
+
+.admin-form-container input[type="text"]:focus,
+.admin-form-container input[type="number"]:focus,
+.admin-form-container textarea:focus,
+.admin-form-container select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* File input */
+.admin-form-container input[type="file"] {
+  width: 100%;
+  color: #374151;
+  padding: 0.35rem;
+  border-radius: 0.375rem;
+  border: 1px solid #d1d5db;
+  cursor: pointer;
+}
+
+.admin-form-container input[type="file"]::-webkit-file-upload-button {
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.35rem 0.7rem;    /* ลด padding */
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.admin-form-container input[type="file"]::-webkit-file-upload-button:hover {
+  background-color: #2563eb;
+}
+
+/* Preview Image */
+.image-preview {
+  margin: 0.5rem auto;        /* auto margin ซ้ายขวา */
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  padding: 0.3rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-preview img {
+  max-width: 60px;            /* เล็กลง */
+  max-height: 60px;
+  border-radius: 0.25rem;
+  object-fit: contain;
+}
+
+/* ปุ่ม */
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.4rem;   /* ลดช่องว่าง */
+  margin-top: 0.75rem;
+}
+
+.button-cancel {
+  padding: 0.35rem 0.7rem;    /* ลด padding */
+  border-radius: 0.375rem;
+  background-color: #d1d5db;
+  color: #374151;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.button-cancel:hover {
+  background-color: #9ca3af;
+}
+
+.button-save {
+  padding: 0.35rem 0.7rem;
+  border-radius: 0.375rem;
+  background-color: #3b82f6;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button-save:hover {
+  background-color: #2563eb;
+}
+
+/* ข้อความ no access */
+.no-access {
+  text-align: center;
+  color: #ef4444;
+  font-weight: 500;
+  margin-top: 1.5rem;
+}

@@ -1,0 +1,36 @@
+<app-header></app-header>
+
+<div class="mygames-container">
+  <h2>🎮 My Games</h2>
+
+  <div *ngIf="games.length === 0" class="empty">
+    <p>คุณยังไม่มีเกมที่ซื้อ</p>
+  </div>
+
+  <div class="games-grid" *ngIf="games.length > 0">
+    <div class="game-card" *ngFor="let game of games">
+      <img [src]="game.image || 'https://via.placeholder.com/220x140'" alt="{{ game.title }}">
+      <h4>{{ game.title }}</h4>
+      <p>{{ game.category }}</p>
+      <p>฿ {{ game.price }}</p>
+      <button class="btn-detail" (click)="viewDetail(game)">ดูรายละเอียด</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div *ngIf="selectedGame" class="modal-overlay" (click)="closeDetail()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>{{ selectedGame.title }}</h2>
+    <p class="category-price">
+      <span>{{ selectedGame.category }}</span> | 
+      <span>฿ {{ selectedGame.price }}</span>
+    </p>
+    <div class="image-wrapper">
+      <img [src]="selectedGame.image" alt="{{ selectedGame.title }}">
+    </div>
+    <p>{{ selectedGame.description }}</p>
+    <p><small>วันที่ซื้อ: {{ selectedGame.created_at | date:'dd/MM/yyyy' }}</small></p>
+    <button class="button-close" (click)="closeDetail()">ปิด</button>
+  </div>
+</div>

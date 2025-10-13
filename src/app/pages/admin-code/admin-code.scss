@@ -1,0 +1,102 @@
+.admin-code-container {
+  max-width: 450px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #1e1e2f;
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+
+  h2 {
+    text-align: center;
+    color: #4cafef;
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.75rem;
+
+    label {
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+    }
+
+    input, select {
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid #444;
+      background-color: #2a2a3d;
+      color: #fff;
+      outline: none;
+      transition: 0.2s;
+
+      &:focus {
+        border-color: #4cafef;
+        box-shadow: 0 0 0 2px rgba(76, 175, 239, 0.2);
+      }
+    }
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+
+    .button-save {
+      background-color: #4cafef;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: 0.2s;
+
+      &:hover {
+        background-color: #2196f3;
+      }
+    }
+  }
+
+  .list-title {
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    text-align: center;
+    color: #4cafef;
+  }
+
+  .code-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0.75rem;
+    margin: 0.25rem 0;
+    background-color: #2a2a3d;
+    border-radius: 6px;
+    font-size: 0.9rem;
+
+    .code-text {
+      font-weight: 600;
+    }
+
+    .code-type {
+      color: #fbbf24; // สีเหลืองสำหรับ type
+    }
+
+    .code-value {
+      color: #4cafef;
+    }
+
+    .code-date {
+      color: #9ca3af;
+    }
+  }
+
+  .no-access {
+    text-align: center;
+    color: #ef4444;
+    font-weight: 500;
+    margin-top: 1.5rem;
+  }
+}

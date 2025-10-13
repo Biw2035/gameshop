@@ -1,0 +1,44 @@
+<div *ngIf="game" class="admin-form-container">
+  <h2>Edit Game</h2>
+  
+  <form>
+    <div>
+      <label>Title:</label>
+      <input type="text" [(ngModel)]="game.title" name="title"/>
+    </div>
+
+    <div>
+      <label>Description:</label>
+      <textarea [(ngModel)]="game.description" name="description"></textarea>
+    </div>
+
+    <div>
+      <label>Price:</label>
+      <input type="number" [(ngModel)]="game.price" name="price"/>
+    </div>
+
+    <div>
+      <label>Category:</label>
+      <input type="text" [(ngModel)]="game.category" name="category"/>
+    </div>
+
+    <div>
+      <label>Image:</label>
+      <input type="file" (change)="onFileChange($event)"/>
+    </div>
+
+    <div class="image-preview" *ngIf="game.image">
+      <img [src]="game.image" alt="Current image">
+    </div>
+
+    <div class="button-group">
+      <button type="button" class="button-cancel" (click)="cancelEdit()">Cancel</button>
+      <button type="button" class="button-save" (click)="saveEdit()">Save</button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="!game" class="no-access">
+  Cannot load game or you do not have access.
+</div>
+

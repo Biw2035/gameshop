@@ -1,0 +1,60 @@
+<app-header></app-header>
+
+<div class="profile-container">
+  <div class="profile-top">
+
+    <div class="user-info">
+      <img
+        [src]="user?.profile_image || 'https://via.placeholder.com/150'"
+        alt="profile"
+        class="profile-img"
+      />
+      <p>Role: {{ user?.role }}</p>
+      <p>Username: {{ user?.username }}</p>
+      <p>E-mail: {{ user?.email }}</p>
+      <p>Wallet: {{ user?.wallet_balance | number:'1.0-2' }} บาท</p>
+
+      <button class="edit-btn" (click)="goToEditProfile()">Edit</button>
+    </div>
+
+    <div class="wallet">
+      <h3>เติมเงิน</h3>
+      <button (click)="topUp(100)">เติม 100 บาท</button>
+      <button (click)="topUp(500)">เติม 500 บาท</button>
+      <button (click)="topUp(1000)">เติม 1000 บาท</button>
+      <input type="number" [(ngModel)]="topUpAmount" placeholder="จำนวนเงิน ......." />
+      <button (click)="topUp()">เติม</button>
+    </div>
+  </div>
+
+<div class="transaction-history">
+  <h3>ประวัติการทำรายการ</h3>
+
+  <div *ngIf="transactions.length === 0" class="no-transactions">
+    <p>ยังไม่มีรายการ</p>
+  </div>
+
+  <div class="transactions-list" *ngIf="transactions.length > 0">
+    <div *ngFor="let t of transactions" 
+         class="transaction-card" 
+         [ngClass]="t.type">
+      
+      <div class="icon">
+        <span *ngIf="t.type === 'topup'">💰</span>
+        <span *ngIf="t.type === 'purchase'">🎮</span>
+      </div>
+
+      <div class="details">
+        <div class="desc">
+          <span *ngIf="t.type === 'topup'">เติมเงิน</span>
+          <span *ngIf="t.type === 'purchase'">ซื้อเกม "{{ t.game_name }}"</span>
+        </div>
+        <div class="amount">
+          {{ t.amount | number:'1.0-2' }} บาท
+        </div>
+        <div class="time">{{ t.created_at | date:'short' }}</div>
+      </div>
+
+    </div>
+  </div>
+</div>

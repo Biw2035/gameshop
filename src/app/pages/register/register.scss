@@ -1,0 +1,139 @@
+/* ====== Container ====== */
+.register-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 80px); /* ลบ navbar ออก */
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ====== Register Box ====== */
+.register-box {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  color: #fff;
+}
+
+/* ====== Title ====== */
+.register-title {
+  font-size: 2rem;
+  color: #00ffcc;
+  margin-bottom: 25px;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+  font-weight: bold;
+}
+
+/* ====== Form ====== */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 15px 12px 30px; /* ลด padding ซ้าย */
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  transition: all 0.3s;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  box-sizing: border-box; /* เพิ่มบรรทัดนี้ */
+}
+
+
+.form-input::placeholder {
+  color: #ddd;
+}
+
+.form-input:focus {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 8px #00ffcc;
+}
+
+/* ====== Icon inside input ====== */
+.icon-input {
+  position: relative;
+}
+
+.icon-input i {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #00ffcc;
+  font-size: 1rem;
+}
+
+/* ====== Upload Label ====== */
+.upload-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: #00ffcc;
+  text-align: left;
+}
+
+/* ====== Preview Image ====== */
+.preview-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 10px auto;
+  display: block;
+  border: 2px solid #00ffcc;
+}
+
+/* ====== Register Button ====== */
+.btn-register {
+  padding: 12px;
+  border-radius: 25px;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(45deg, #00ffcc, #0077ff);
+  transition: all 0.3s;
+}
+
+.btn-register:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* ====== Login Link ====== */
+.register-login {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.register-login a {
+  color: #00ffcc;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.register-login a:hover {
+  text-decoration: underline;
+}
+
+/* ====== Message ====== */
+.register-message {
+  color: #ff4e50;
+  margin: 10px 0;
+  font-weight: 500;
+}
+

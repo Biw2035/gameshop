@@ -1,0 +1,107 @@
+.edit-profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 30px 20px 20px 20px;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  font-family: 'Poppins', sans-serif;
+
+  .edit-profile-card {
+    background: #1a1f2a;
+    border-radius: 20px;
+    padding: 35px 40px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 450px;
+    color: #fff;
+    transition: all 0.3s;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 2rem;
+      color: #00ffcc;
+      text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+
+        label {
+          margin-bottom: 8px;
+          font-weight: 600;
+          color: #ccc;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="file"] {
+          padding: 12px 15px;
+          border-radius: 12px;
+          border: 1px solid #444;
+          background: #2a2f3e;
+          color: #fff;
+          font-size: 0.95rem;
+          outline: none;
+          transition: all 0.3s;
+
+          &:focus {
+            border-color: #00ffcc;
+            box-shadow: 0 0 10px #00ffcc;
+            background: #1f2431;
+          }
+        }
+
+        .image-preview {
+          margin-top: 10px;
+          img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #00ffcc;
+            box-shadow: 0 4px 10px rgba(0,255,204,0.5);
+            transition: transform 0.3s;
+
+            &:hover {
+              transform: scale(1.05);
+            }
+          }
+        }
+      }
+
+      .save-btn {
+        padding: 12px;
+        border: none;
+        border-radius: 25px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        color: #fff;
+        background: linear-gradient(45deg, #00ffcc, #0077ff);
+        box-shadow: 0 6px 15px rgba(0, 255, 204, 0.5);
+        transition: all 0.3s;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(0, 255, 204, 0.6);
+        }
+      }
+    }
+  }
+
+ 
+  
+}

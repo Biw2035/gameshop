@@ -1,0 +1,87 @@
+<app-header (searchEvent)="onSearchGames($event)"></app-header>
+
+<!--ยังไม่ล็อกอิน-->
+<ng-container *ngIf="!(isLoggedIn$ | async)">
+  <div class="welcome">
+    <h2>Welcome to GameShop</h2>
+    <p>Your one-stop shop for the best games!</p>
+    <div class="welcome-buttons">
+      <button class="action-button" routerLink="/login">Login</button>
+      <button class="action-button" routerLink="/register">Register</button>
+    </div>
+  </div>
+</ng-container>
+
+<!--ล็อกอินแล้ว-->
+<ng-container *ngIf="isLoggedIn$ | async">
+  <div class="welcome" *ngIf="currentUser$ | async as user">
+    <h2>Welcome back, {{ user.username }}!</h2>
+    <p>Ready to find your next adventure?</p>
+    <h3>Go To Shop</h3>
+  </div>
+</ng-container>
+
+<!-- ปุ่มหมวดเกม -->
+<div class="category-buttons" *ngIf="categories && categories.length">
+  <button class="category-button" 
+          [class.active]="!selectedCategory" 
+          (click)="filterGames('')">All</button>
+  <button *ngFor="let c of categories" 
+          class="category-button" 
+          [class.active]="selectedCategory === c" 
+          (click)="filterGames(c)">
+    {{ c }}
+  </button>
+</div>
+
+<!-- เกมจาก database -->
+<div class="game-list" *ngIf="filteredGames && filteredGames.length > 0">
+  <div class="game-cards-container">
+    <div class="game-card" *ngFor="let game of filteredGames; trackBy: trackById">
+      <img [src]="game.image || 'https://via.placeholder.com/220x140'" alt="{{ game.title }}" class="game-image" />
+      <h4>{{ game.title }}</h4>
+      <p>{{ game.description }}</p>
+      <p><strong>Price:</strong> ฿ {{ game.price }}</p>
+      <p><strong>Category:</strong> {{ game.category }}</p>
+
+      <div *ngIf="currentUser$ | async as user">
+        <button *ngIf="user.role === 'user'" class="game-button" (click)="addToCart(game)">Add to Cart</button>
+        <button *ngIf="user.role === 'user'" class="game-button" (click)="viewDetail(game)">Detail</button>
+        <button *ngIf="user.role === 'admin'" class="game-button admin" (click)="goToEdit(game.id)">Edit</button>
+        <button *ngIf="user.role === 'admin'" class="game-button admin delete" (click)="deleteGame(game)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- กรณีไม่พบเกม -->
+<div *ngIf="filteredGames && filteredGames.length === 0">
+  <p>No games found.</p>
+</div>
+
+<!-- Modal -->
+<div *ngIf="selectedGame" class="modal-overlay" (click)="closeDetail()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>{{ selectedGame.title }}</h2>
+
+    <p class="category-price">
+      <span>{{ selectedGame.category }}</span> | 
+      <span>฿ {{ selectedGame.price }}</span>
+    </p>
+
+    <!-- วันที่วางขาย -->
+    <p class="created-at">Available when: {{ selectedGame.created_at | date:'dd/MM/yyyy' }}</p>
+
+    <div class="image-wrapper">
+      <img [src]="selectedGame.image" alt="{{ selectedGame.title }}">
+    </div>
+
+    <p>{{ selectedGame.description }}</p>
+
+    <div class="button-group">
+      <button class="button-add" (click)="addToCart(selectedGame)">Add to Cart</button>
+      <button *ngIf="(currentUser$ | async)?.role === 'admin'" class="button-edit" (click)="goToEdit(selectedGame.id)">Edit</button>
+      <button class="button-close" (click)="closeDetail()">Close</button>
+    </div>
+  </div>
+</div>

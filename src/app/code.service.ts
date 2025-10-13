@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { environment } from '../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class CodeService {
 
-  private apiUrl = 'https://gameshop-api-1.onrender.com/api/admin/codes'; // เปลี่ยน URL ให้ตรง backend
+  private apiUrl = '${environment.apiUrl}/api/admin/codes'; // เปลี่ยน URL ให้ตรง backend
 
   constructor(private http: HttpClient) {}
 

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Header } from '../header/header';
 import { AuthService, User } from '../../auth.service';
-
+import { environment } from '../../../environments/environment';
 export interface Game {
   id: number;
   title: string;
@@ -35,7 +35,7 @@ export class MyGames {
     const token = localStorage.getItem('token');
     if (!token) return;
 
-    this.http.get<{ games: Game[] }>('https://gameshop-api-1.onrender.com/api/mygames', {
+    this.http.get<{ games: Game[] }>('${environment.apiUrl}/api/mygames', {
       headers: { Authorization: `Bearer ${token}` }
     }).subscribe({
       next: res => this.games = res.games,

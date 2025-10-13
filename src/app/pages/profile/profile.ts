@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Header } from '../header/header';
 import { AuthService, User } from '../../auth.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-
+import { environment } from '../../../environments/environment';
 interface Transaction {
   id: number;
   type: 'topup' | 'purchase';
@@ -68,7 +68,7 @@ export class Profile {
   }
 
   this.http.get<{ transactions: Transaction[] }>(
-    'https://gameshop-api-1.onrender.com/api/profile/transactions',
+    '${environment.apiUrl}/api/profile/transactions',
     { headers: { Authorization: `Bearer ${token}` } }
   ).subscribe({
     next: res => this.transactions = res.transactions,

@@ -7,6 +7,7 @@
   import { Header } from '../header/header';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CartService } from '../../CartService';
+import { environment } from '../../../environments/environment';
   export  interface Game {
     id: number;
     title: string;
@@ -139,7 +140,7 @@ selectedGame: Game | null = null;
       return;
     }
 
-    this.http.delete(`https://gameshop-api-1.onrender.com/api/games/${game.id}`, {
+    this.http.delete(`${environment.apiUrl}/api/games/${game.id}`, {
       headers: { Authorization: `Bearer ${token}` }
     }).subscribe({
       next: () => {

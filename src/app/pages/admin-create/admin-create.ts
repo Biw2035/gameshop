@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Header } from '../header/header';
+import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-admin-create',
   standalone: true,
@@ -62,7 +63,7 @@ export class AdminCreate {
       return;
     }
 
-    this.http.post('https://gameshop-api-1.onrender.com/api/games', formData, {
+    this.http.post('${environment.apiUrl}/api/games', formData, {
       headers: { Authorization: `Bearer ${token}` }
     }).subscribe({
       next: (res: any) => {

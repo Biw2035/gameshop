@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../environments/environment';
 export interface User {
   id: number;
   username: string;
@@ -21,7 +21,7 @@ export class AuthService {
   isLoggedIn$ = this._isLoggedIn$.asObservable();
   currentUser$ = this._currentUser$.asObservable();
 
-  BASE_URL = 'https://gameshop-api-1.onrender.com';
+  BASE_URL = '${environment.apiUrl}';
 
   constructor(private http: HttpClient) {
 

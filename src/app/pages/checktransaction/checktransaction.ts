@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Header } from '../header/header';
-
+import { environment } from '../../../environments/environment';
 interface Transaction {
   id: number;
   type: 'topup' | 'purchase';
@@ -30,7 +30,7 @@ export class Checktransaction implements OnInit {
   users: User[] = [];
   selectedUserId: number | null = null;
   transactions: Transaction[] = [];
-  apiUrl = 'https://gameshop-api-1.onrender.com/api/admin';
+  apiUrl = '${environment.apiUrl}/api/admin';
 
   constructor(private http: HttpClient) {}
 

@@ -3,13 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Game } from './pages/home/home';
 import { Observable, tap } from 'rxjs';
 import { AuthService } from './auth.service';
-
+import { environment } from '../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   private cartKey = 'gameshop_cart';
-  private apiUrl = 'https://gameshop-api-1.onrender.com/api'; 
+  private apiUrl = '${environment.apiUrl}/api'; 
 
   constructor(private http: HttpClient, private authService: AuthService) {} 
 

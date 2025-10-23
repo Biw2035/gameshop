@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Game } from '../home/home';
-import { environment } from '../../../environments/environment';
+
 @Component({
   selector: 'app-game-edit',
   standalone: true,
@@ -35,7 +35,7 @@ export class GameEdit {
   loadGame() {
     if (!this.gameId) return;
 
-    this.http.get<Game>(`${environment.apiUrl}/api/games/${this.gameId}`)
+    this.http.get<Game>(`https://gameshop-api-1.onrender.com/api/games/${this.gameId}`)
       .subscribe({
         next: (res) => this.game = res,
         error: (err) => {

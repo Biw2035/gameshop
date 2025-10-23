@@ -71,18 +71,35 @@
 
 /* การ์ดแต่ละเกม */
 .game-card {
+  position: relative;  /* เพิ่มเพื่อให้ rank-badge อยู่มุม */
   background: linear-gradient(135deg, #2c3e50, #34495e);
   color: #fff;
   padding: 20px;
   border-radius: 15px;
-  min-width: 220px;    /* กำหนดขนาดพอดี */
-  max-width: 250px;    /* ไม่ใหญ่เกินไป */
-  flex: 1 1 220px;     /* ขยายตัวตาม container */
+  min-width: 220px;
+  max-width: 250px;
+  flex: 1 1 220px;
   font-weight: 600;
   box-shadow: 0 6px 15px rgba(0,0,0,0.4);
   transition: transform 0.3s, box-shadow 0.3s;
   text-align: center;
+
+  .rank-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #ffcc00;
+    color: #000;
+    font-weight: bold;
+    padding: 5px 8px;
+    border-radius: 50%;
+    font-size: 14px;
+    z-index: 2;
+  }
 }
+
+
+  
 
 .game-card:hover {
   transform: translateY(-5px);

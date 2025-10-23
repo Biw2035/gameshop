@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Header } from '../header/header';
 import { AuthService, User } from '../../auth.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+
 interface Transaction {
   id: number;
   type: 'topup' | 'purchase';
@@ -34,10 +34,8 @@ export class Profile {
     private authService: AuthService,
     private http: HttpClient
   ) {
-    // อัปเดต user ทุกครั้งจาก BehaviorSubject
+    // อัปเดต user 
     this.authService.currentUser$.subscribe(user => this.user = user);
-
-    // โหลด transaction history
     this.loadTransactions();
   }
 
@@ -53,7 +51,6 @@ export class Profile {
       next: () => {
         this.topUpAmount = 0;
         alert(`เติมเงิน ${addAmount} บาทเรียบร้อย`);
-        // รีโหลด transactions ทันที
         this.loadTransactions();
       },
       error: err => alert('เติมเงินไม่สำเร็จ: ' + (err.error?.error || err.message))
@@ -68,7 +65,7 @@ export class Profile {
   }
 
   this.http.get<{ transactions: Transaction[] }>(
-    '${environment.apiUrl}/api/profile/transactions',
+    'https://gameshop-api-1.onrender.com/api/profile/transactions',
     { headers: { Authorization: `Bearer ${token}` } }
   ).subscribe({
     next: res => this.transactions = res.transactions,

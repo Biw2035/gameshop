@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
 import { Header } from '../header/header';
-import { environment } from '../../../environments/environment';
+
 import { AuthService } from '../../auth.service';
 @Component({
   selector: 'app-login',
@@ -31,7 +31,7 @@ export class Login {
       return;
     }
 
-    this.http.post('${environment.apiUrl}/api/login', {
+    this.http.post('https://gameshop-api-1.onrender.com/api/login', {
       email: this.email,
       password: this.password
     }).subscribe({

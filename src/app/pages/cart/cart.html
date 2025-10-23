@@ -21,15 +21,16 @@
 
   <div *ngIf="cartItems.length > 0" class="cart-summary">
     <p>ราคารวม: {{ getTotalFormatted() }}</p>
-    <p >ส่วนลด: {{ discountValue }}</p>
+    <p>ส่วนลด: {{ discountValue }}</p>
     <p>ราคาสุทธิ: {{ getFinalFormatted() }}</p>
 
     <div class="cart-buttons">
       <div class="cart-code">
-        <label>โค้ดลดราคา (ถ้ามี):</label>
-        <input type="text" [(ngModel)]="discountCode" placeholder="กรอกโค้ดลดราคา" />
-        <button type="button" (click)="applyDiscount()" class="button-apply">ใช้โค้ด</button>
-      </div>
+  <label>โค้ดลดราคา (ถ้ามี):</label>
+  <input type="text" [(ngModel)]="discountCode" placeholder="กรอกโค้ดลดราคา" />
+  <button type="button" (click)="useDiscountCode()" class="button-apply">ใช้โค้ด</button>
+</div>
+
 
       <button (click)="checkout()" class="button-checkout">ชำระเงิน</button>
     </div>

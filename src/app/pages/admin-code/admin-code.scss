@@ -38,7 +38,21 @@
       }
     }
   }
+  .button-delete{
+    background-color: #ef4444;
+    color: #fff;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s;
+    margin-left: 1rem;
 
+    &:hover {
+      background-color: #dc2626;
+    }
+  }
   .button-group {
     display: flex;
     justify-content: flex-end;
@@ -99,4 +113,25 @@
     font-weight: 500;
     margin-top: 1.5rem;
   }
+
+  .button-edit {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    margin-right: 4px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .button-delete {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
 }
+
+

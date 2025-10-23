@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../environments/environment';
+
 export interface User {
   id: number;
   username: string;
@@ -21,7 +21,7 @@ export class AuthService {
   isLoggedIn$ = this._isLoggedIn$.asObservable();
   currentUser$ = this._currentUser$.asObservable();
 
-  BASE_URL = '${environment.apiUrl}';
+  BASE_URL = 'https://gameshop-api-1.onrender.com';
 
   constructor(private http: HttpClient) {
 
@@ -63,7 +63,6 @@ export class AuthService {
       { headers: { Authorization: `Bearer ${token}` } }
     ).pipe(
       tap(res => {
-        // อัปเดต BehaviorSubject ทันที
         this._currentUser$.next(res.user);
         localStorage.setItem('user', JSON.stringify(res.user));
       })

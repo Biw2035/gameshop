@@ -7,16 +7,16 @@
   import { Header } from '../header/header';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CartService } from '../../CartService';
-import { environment } from '../../../environments/environment';
-  export  interface Game {
-    id: number;
-    title: string;
-    description: string;
-    price: number;
-    category: string;
-    image: string;
-    created_at: string; 
-  }
+export interface Game {
+  id: number;
+  title: string;        // ชื่อเกม ใช้ใน HTML
+  description: string;
+  price: number;
+  category: string;
+  image: string;
+  created_at: string; 
+}
+
 
   @Component({
     selector: 'app-home',
@@ -31,6 +31,7 @@ import { environment } from '../../../environments/environment';
     currentUser$: Observable<User | null>;
 
     games: Game[] = [];
+    topGames: Game[] = [];
     filteredGames: Game[] = [];
     categories: string[] = [];
     selectedCategory: string = '';
@@ -47,6 +48,7 @@ import { environment } from '../../../environments/environment';
     ngOnInit() {
       this.loadGames();
       this.loadMyGames();
+      this.loadTopGames();
     }
 
     loadGames() {
@@ -73,7 +75,15 @@ import { environment } from '../../../environments/environment';
       });
     }
 
-    // 🔍 ค้นหา + กรอง Category
+       loadTopGames() {
+          this.http.get<Game[]>('https://gameshop-api-1.onrender.com/api/top-games')
+            .subscribe({
+              next: res => this.topGames = res || [],
+              error: err => console.error('Failed to load top games', err)
+            });
+        }
+
+    //Category
     applyFilters() {
       let result = this.games;
 
@@ -93,10 +103,32 @@ import { environment } from '../../../environments/environment';
       this.filteredGames = result;
     }
 
-    filterGames(category: string) {
-      this.selectedCategory = category;
-      this.applyFilters();
-    }
+   filterGames(category: string) {
+  this.selectedCategory = category;
+  let result: Game[] = [];
+
+  if (category === 'top') {
+    // กรองเฉพาะ topGames
+    result = this.topGames;
+  } else if (category) {
+    // กรองตาม category
+    result = this.games.filter(g => g.category === category);
+  } else {
+    result = this.games;
+  }
+
+  // ถ้ามี search term ให้กรองต่อ
+  if (this.searchTerm) {
+    const term = this.searchTerm.toLowerCase().trim();
+    result = result.filter(g =>
+      g.title.toLowerCase().includes(term) ||
+      g.description.toLowerCase().includes(term) ||
+      g.category.toLowerCase().includes(term)
+    );
+  }
+
+  this.filteredGames = result;
+}
 
     onSearchGames(term: string) {
       this.searchTerm = term;
@@ -140,7 +172,7 @@ selectedGame: Game | null = null;
       return;
     }
 
-    this.http.delete(`${environment.apiUrl}/api/games/${game.id}`, {
+    this.http.delete(`https://gameshop-api-1.onrender.com/api/games/${game.id}`, {
       headers: { Authorization: `Bearer ${token}` }
     }).subscribe({
       next: () => {

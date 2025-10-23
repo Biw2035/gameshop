@@ -26,6 +26,13 @@
   <button class="category-button" 
           [class.active]="!selectedCategory" 
           (click)="filterGames('')">All</button>
+
+  <button class="category-button" 
+          [class.active]="selectedCategory === 'top'" 
+          (click)="filterGames('top')">
+    เกมยอดฮิต
+  </button>
+
   <button *ngFor="let c of categories" 
           class="category-button" 
           [class.active]="selectedCategory === c" 
@@ -34,25 +41,30 @@
   </button>
 </div>
 
-<!-- เกมจาก database -->
-<div class="game-list" *ngIf="filteredGames && filteredGames.length > 0">
-  <div class="game-cards-container">
-    <div class="game-card" *ngFor="let game of filteredGames; trackBy: trackById">
-      <img [src]="game.image || 'https://via.placeholder.com/220x140'" alt="{{ game.title }}" class="game-image" />
-      <h4>{{ game.title }}</h4>
-      <p>{{ game.description }}</p>
-      <p><strong>Price:</strong> ฿ {{ game.price }}</p>
-      <p><strong>Category:</strong> {{ game.category }}</p>
 
-      <div *ngIf="currentUser$ | async as user">
-        <button *ngIf="user.role === 'user'" class="game-button" (click)="addToCart(game)">Add to Cart</button>
-        <button *ngIf="user.role === 'user'" class="game-button" (click)="viewDetail(game)">Detail</button>
-        <button *ngIf="user.role === 'admin'" class="game-button admin" (click)="goToEdit(game.id)">Edit</button>
-        <button *ngIf="user.role === 'admin'" class="game-button admin delete" (click)="deleteGame(game)">Delete</button>
-      </div>
+<!-- เกมจาก database -->
+<div class="game-cards-container">
+  <div class="game-card" *ngFor="let game of filteredGames; let i = index; trackBy: trackById">
+    <!-- ถ้าเป็น topGames แสดงอันดับ -->
+    <div *ngIf="selectedCategory === 'top'" class="rank-badge">
+      #{{ i + 1 }}
+    </div>
+
+    <img [src]="game.image || 'https://via.placeholder.com/220x140'" alt="{{ game.title }}" class="game-image" />
+    <h4>{{ game.title }}</h4>
+    <p>{{ game.description }}</p>
+    <p><strong>Price:</strong> ฿ {{ game.price }}</p>
+    <p><strong>Category:</strong> {{ game.category }}</p>
+
+    <div *ngIf="currentUser$ | async as user">
+      <button *ngIf="user.role === 'user'" class="game-button" (click)="addToCart(game)">Add to Cart</button>
+      <button *ngIf="user.role === 'user'" class="game-button" (click)="viewDetail(game)">Detail</button>
+      <button *ngIf="user.role === 'admin'" class="game-button admin" (click)="goToEdit(game.id)">Edit</button>
+      <button *ngIf="user.role === 'admin'" class="game-button admin delete" (click)="deleteGame(game)">Delete</button>
     </div>
   </div>
 </div>
+
 
 <!-- กรณีไม่พบเกม -->
 <div *ngIf="filteredGames && filteredGames.length === 0">

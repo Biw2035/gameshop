@@ -5,7 +5,6 @@ import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http'
 import { Router } from '@angular/router';
 import { AuthService, User } from '../../auth.service';
 import { Header } from '../header/header';
-import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
@@ -55,7 +54,7 @@ export class EditProfile implements OnInit {
       formData.append('profile_image', this.profileFile);
     }
 
-    this.http.put<any>('${environment.apiUrl}/api/profile', formData, { headers })
+    this.http.put<any>('https://gameshop-api-1.onrender.com/api/profile', formData, { headers })
       .subscribe({
         next: res => {
           alert('อัปเดตข้อมูลสำเร็จ');

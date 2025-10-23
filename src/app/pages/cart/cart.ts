@@ -21,9 +21,9 @@ export class Cart implements OnInit {
   discountValue: number = 0;
   totalPrice: number = 0;
   finalPrice: number = 0;
-  
+
   constructor(
-    private cartService: CartService, 
+    private cartService: CartService,
     private authService: AuthService,
     private router: Router
   ) {}
@@ -34,42 +34,58 @@ export class Cart implements OnInit {
 
   loadCart() {
     this.cartItems = this.cartService.getCart();
-    this.calculateTotal(); // คำนวณยอดรวมตอนโหลด
+    this.calculateTotal();
   }
 
   calculateTotal() {
     this.totalPrice = this.cartItems.reduce((sum, g) => sum + Number(g.price), 0);
-    this.finalPrice = this.totalPrice - this.discountValue ;
+    this.finalPrice = Math.max(this.totalPrice - this.discountValue, 0);
   }
 
-  applyDiscount() {
-  if (!this.discountCode) {
+  // ปุ่ม "ใช้โค้ด"
+useDiscountCode() {
+  if (!this.discountCode.trim()) {
     alert('กรุณากรอกโค้ดก่อน');
     return;
   }
 
+  // รีเซ็ตส่วนลด
+  this.discountValue = 0;
+  this.calculateTotal();
+
   this.cartService.getDiscountCode(this.discountCode).subscribe({
     next: (res: any) => {
-      if (res && res.type === 'discount') {
-        this.discountValue = res.value;
-        alert(`ใช้โค้ด "${this.discountCode}" ลดราคา ${this.discountValue}`);
-      } else {
-        this.discountValue = 0;
-        alert('โค้ดไม่ถูกต้อง');
+      if (res.usedByCurrentUser) {
+        alert('คุณใช้โค้ดนี้แล้ว');
+        this.discountCode = '';
+        return; // หยุดคำนวณส่วนลด
       }
-      this.calculateTotal();
+
+      // ถ้าใช้ได้
+      if (res.value > 0) {
+        this.discountValue = res.value;
+        this.calculateTotal();
+        alert(`ใช้โค้ด "${this.discountCode}" ลดราคา ${this.discountValue} บาท\nราคาสุทธิ: ${this.finalPrice.toLocaleString('th-TH', { style: 'currency', currency: 'THB' })}`);
+      } else {
+        alert('โค้ดไม่ถูกต้อง หรือใช้ไม่ได้');
+        this.discountCode = '';
+      }
     },
-    error: (err) => {
-      this.discountValue = 0;
-      alert('โค้ดไม่ถูกต้อง');
-      this.calculateTotal();
+    error: (err: any) => {
+      let msg = err.error?.error || err.error?.message || 'โค้ดไม่ถูกต้อง';
+      alert(msg);
+      this.discountCode = '';
     }
   });
 }
 
+
+
+
+
   removeGame(gameId: number) {
     this.cartService.removeFromCart(gameId);
-    this.loadCart(); // รีเฟรชยอดรวมหลังลบ
+    this.loadCart();
   }
 
   getTotalFormatted(): string {
@@ -80,20 +96,67 @@ export class Cart implements OnInit {
     return this.finalPrice.toLocaleString('th-TH', { style: 'currency', currency: 'THB' });
   }
 
+  // กด checkout
   checkout() {
+    if (this.discountCode.trim()) {
+      // ตรวจสอบโค้ดก่อน checkout
+      this.cartService.getDiscountCode(this.discountCode).subscribe({
+        next: (res: any) => {
+          if (res?.usedByCurrentUser) {
+            alert('คุณใช้โค้ดนี้แล้ว ส่วนลดจะไม่ถูกนำมาคำนวณ');
+            this.discountValue = 0;
+            this.discountCode = '';
+            this.calculateTotal();
+            this.finalizeCheckout();
+            return;
+          }
+
+          if (res?.value > 0) {
+            this.discountValue = res.value;
+            this.calculateTotal();
+            this.finalizeCheckout();
+          } else {
+            alert('โค้ดไม่ถูกต้อง หรือใช้ไม่ได้');
+            this.discountValue = 0;
+            this.discountCode = '';
+            this.calculateTotal();
+            this.finalizeCheckout();
+          }
+        },
+        error: (err: any) => {
+          let msg = err.error?.error || err.error?.message || 'โค้ดไม่ถูกต้อง';
+          alert(msg);
+          this.discountValue = 0;
+          this.discountCode = '';
+          this.calculateTotal();
+          this.finalizeCheckout();
+        }
+      });
+    } else {
+      this.finalizeCheckout();
+    }
+  }
+
+  private finalizeCheckout() {
     const confirmPurchase = window.confirm(
       `คุณแน่ใจหรือไม่ที่จะซื้อเกมทั้งหมด?\nยอดรวม: ${this.getTotalFormatted()}\nหลังหักส่วนลด: ${this.getFinalFormatted()}`
     );
     if (!confirmPurchase) return;
 
-    this.cartService.checkout(this.discountCode).subscribe({
+    this.cartService.checkout(this.cartItems, this.discountCode).subscribe({
       next: (res: any) => {
-        alert(res.message);
+        alert(`${res.message}\nส่วนลดที่ใช้: ${res.discountApplied || 0} บาท`);
+        this.discountValue = res.discountApplied || 0;
+        this.discountCode = '';
+        this.calculateTotal();
         this.authService.updateCurrentUser(res.updatedUser);
         this.cartService.clearCart();
         this.router.navigate(['/mygame']);
       },
-      error: (err) => alert(err.error?.error || 'เกิดข้อผิดพลาดระหว่างชำระเงิน')
+      error: (err) => {
+        let msg = err.error?.error || 'เกิดข้อผิดพลาดระหว่างชำระเงิน';
+        alert(msg);
+      }
     });
   }
 }

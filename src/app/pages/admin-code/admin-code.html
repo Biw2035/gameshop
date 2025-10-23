@@ -1,8 +1,7 @@
 <app-header></app-header>
 
 <div class="admin-code-container">
-
-  <h2>สร้างโค้ดลดราคา</h2>
+  <h2>สร้าง/แก้ไขโค้ดลดราคา</h2>
 
   <form (ngSubmit)="createCode()">
     <div class="form-group">
@@ -15,19 +14,53 @@
       <input type="number" [(ngModel)]="newCode.value" name="value" required />
     </div>
 
+    <!-- Checkbox เลือกว่าจะกำหนดจำนวนครั้งหรือวันหมดอายุ -->
+    <div class="form-group">
+      <label><input type="checkbox" [(ngModel)]="setMaxUses" name="setMaxUses" /> กำหนดจำนวนครั้งสูงสุด</label>
+      <div *ngIf="setMaxUses">
+        <input type="number" [(ngModel)]="newCode.max_uses" name="max_uses" min="1" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label><input type="checkbox" [(ngModel)]="setExpiresAt" name="setExpiresAt" /> กำหนดวันหมดอายุ</label>
+      <div *ngIf="setExpiresAt">
+        <input type="date" [(ngModel)]="newCode.expires_at" name="expires_at" />
+      </div>
+    </div>
+
     <div class="button-group">
-      <button type="submit" class="button-save">สร้างโค้ด</button>
+      <button type="submit" class="button-save">
+        {{ editing ? 'บันทึกการแก้ไข' : 'สร้างโค้ด' }}
+      </button>
+      <button type="button" *ngIf="editing" (click)="editing=false; resetForm()" class="button-cancel">
+        ยกเลิก
+      </button>
     </div>
   </form>
 
   <h2 class="list-title">รายการโค้ด</h2>
-  <div *ngFor="let code of codeList" class="code-item">
-    <span class="code-text">{{ code.code }}</span>
-    <span class="code-value">{{ code.value }}</span>
-    <span class="code-date">{{ code.created_at | date:'dd/MM/yyyy' }}</span>
-  </div>
 
-  <ng-template #noAccess>
-    <p class="no-access">⛔ คุณไม่มีสิทธิ์เข้าถึงหน้านี้</p>
-  </ng-template>
-</div>
+<table class="code-table">
+  <thead>
+    <tr>
+      <th>โค้ด</th>
+      <th>มูลค่า (บาท)</th>
+      <th>จำนวนครั้งสูงสุด</th>
+      <th>วันหมดอายุ</th>
+      <th>การจัดการ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let code of codeList">
+      <td>{{ code.code }}</td>
+      <td>{{ code.value }}</td>
+      <td>{{ code.max_uses || '-' }}</td>
+      <td>{{ code.expires_at ? (code.expires_at | date:'dd/MM/yyyy') : '-' }}</td>
+      <td>
+        <button class="button-edit" (click)="editCode(code)">แก้ไข</button>
+        <button class="button-delete" (click)="deleteCode(code.id)">ลบ</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -52,7 +52,7 @@ export interface Game {
     }
 
     loadGames() {
-      this.http.get<Game[]>('https://gameshop-api-1.onrender.com/api/games')
+      this.http.get<Game[]>('${environment.apiUrl}/games')
         .subscribe({
           next: (res) => {
             this.games = res;
@@ -67,7 +67,7 @@ export interface Game {
       const token = localStorage.getItem('token') || '';
       if (!token) return;
 
-      this.http.get<{ games: Game[] }>('https://gameshop-api-1.onrender.com/api/mygames', {
+      this.http.get<{ games: Game[] }>('${environment.apiUrl}/mygames', {
         headers: { Authorization: `Bearer ${token}` }
       }).subscribe({
         next: res => this.myGames = res.games,
@@ -76,7 +76,7 @@ export interface Game {
     }
 
        loadTopGames() {
-          this.http.get<Game[]>('https://gameshop-api-1.onrender.com/api/top-games')
+          this.http.get<Game[]>('${environment.apiUrl}/top-games')
             .subscribe({
               next: res => this.topGames = res || [],
               error: err => console.error('Failed to load top games', err)
@@ -172,7 +172,7 @@ selectedGame: Game | null = null;
       return;
     }
 
-    this.http.delete(`https://gameshop-api-1.onrender.com/api/games/${game.id}`, {
+    this.http.delete(`${environment.apiUrl}/games/${game.id}`, {
       headers: { Authorization: `Bearer ${token}` }
     }).subscribe({
       next: () => {

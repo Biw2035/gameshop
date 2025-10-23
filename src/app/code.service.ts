@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class CodeService {
 
-  private apiUrl = 'https://gameshop-api-1.onrender.com/api/admin/codes'; // URL backend
+  private apiUrl = '${environment.apiUrl}/admin/codes'; // URL backend
 
   constructor(private http: HttpClient) {}
 

@@ -58,7 +58,7 @@ export class AuthService {
   topUpWallet(amount: number) {
     const token = localStorage.getItem('token');
     return this.http.put<{ user: User }>(
-      'https://gameshop-api-1.onrender.com/api/profile/topup',
+      '${environment.apiUrl}/profile/topup',
       { topUp: amount },
       { headers: { Authorization: `Bearer ${token}` } }
     ).pipe(

@@ -44,7 +44,7 @@ export class MyGames implements OnInit {
       return;
     }
 
-    this.http.get<{ games?: Game[] }>('https://gameshop-api-1.onrender.com/api/mygames', {
+    this.http.get<{ games?: Game[] }>('${environment.apiUrl}/mygames', {
       headers: { Authorization: `Bearer ${token}` }
     }).subscribe({
       next: res => {
@@ -63,7 +63,7 @@ loadAvailableCodes() {
   const token = localStorage.getItem('token'); // ดึง token
   if (!token) return; // ถ้าไม่มี token ก็ไม่โหลด
 
-  this.http.get<any[]>('https://gameshop-api-1.onrender.com/api/available-codes', {
+  this.http.get<any[]>('${environment.apiUrl}/available-codes', {
     headers: { Authorization: `Bearer ${token}` } // ✅ ใส่ token
   }).subscribe({
     next: (res) => (this.discountCodes = res),

@@ -30,7 +30,7 @@ export class Checktransaction implements OnInit {
   users: User[] = [];
   selectedUserId: number | null = null;
   transactions: Transaction[] = [];
-  apiUrl = 'https://gameshop-api-1.onrender.com/api/admin';
+  apiUrl = '${environment.apiUrl}/admin';
 
   constructor(private http: HttpClient) {}
 

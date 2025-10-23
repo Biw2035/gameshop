@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
 })
 export class CartService {
   private cartKey = 'gameshop_cart';
-  private apiUrl = 'https://gameshop-api-1.onrender.com/api'; 
+  private apiUrl = '${environment.apiUrl}'; 
 
   constructor(private http: HttpClient, private authService: AuthService) {} 
 

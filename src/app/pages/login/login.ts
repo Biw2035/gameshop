@@ -31,7 +31,7 @@ export class Login {
       return;
     }
 
-    this.http.post('https://gameshop-api-1.onrender.com/api/login', {
+    this.http.post('${environment.apiUrl}/login', {
       email: this.email,
       password: this.password
     }).subscribe({

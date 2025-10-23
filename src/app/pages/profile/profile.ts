@@ -65,7 +65,7 @@ export class Profile {
   }
 
   this.http.get<{ transactions: Transaction[] }>(
-    'https://gameshop-api-1.onrender.com/api/profile/transactions',
+    '${environment.apiUrl}/profile/transactions',
     { headers: { Authorization: `Bearer ${token}` } }
   ).subscribe({
     next: res => this.transactions = res.transactions,

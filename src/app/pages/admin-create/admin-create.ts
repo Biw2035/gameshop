@@ -62,7 +62,7 @@ export class AdminCreate {
       return;
     }
 
-    this.http.post('https://gameshop-api-1.onrender.com/api/games', formData, {
+    this.http.post('${environment.apiUrl}/games', formData, {
       headers: { Authorization: `Bearer ${token}` }
     }).subscribe({
       next: (res: any) => {

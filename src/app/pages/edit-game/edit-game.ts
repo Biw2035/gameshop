@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Game } from '../home/home';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-game-edit',
@@ -35,7 +36,7 @@ export class GameEdit {
   loadGame() {
     if (!this.gameId) return;
 
-    this.http.get<Game>(`https://gameshop-api-1.onrender.com/api/games/${this.gameId}`)
+    this.http.get<Game>(`${environment.apiUrl}/games/${this.gameId}`)
       .subscribe({
         next: (res) => this.game = res,
         error: (err) => {
@@ -69,7 +70,7 @@ export class GameEdit {
       return;
     }
 
-    this.http.put(`https://gameshop-api-1.onrender.com/api/games/${this.gameId}`, formData, {
+    this.http.put(`${environment.apiUrl}/games/${this.gameId}`, formData, {
       headers: { Authorization: `Bearer ${token}` }
     }).subscribe({
       next: () => {

@@ -50,7 +50,7 @@ export class Register {
       formData.append('profile_image', this.profileImageFile);
     }
 
-    this.http.post('https://gameshop-api-1.onrender.com/api/register', formData)
+    this.http.post('${environment.apiUrl}/register', formData)
       .subscribe({
         next: (res: any) => {
           this.message = res.message;

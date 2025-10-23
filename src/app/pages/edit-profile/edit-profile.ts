@@ -54,7 +54,7 @@ export class EditProfile implements OnInit {
       formData.append('profile_image', this.profileFile);
     }
 
-    this.http.put<any>('https://gameshop-api-1.onrender.com/api/profile', formData, { headers })
+    this.http.put<any>('${environment.apiUrl}/api/profile', formData, { headers })
       .subscribe({
         next: res => {
           alert('อัปเดตข้อมูลสำเร็จ');
